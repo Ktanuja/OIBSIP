@@ -1,0 +1,27 @@
+import javax.swing.JOptionPane;
+import java.util.Random;
+
+public class NumberGuessingGame {
+    public static void main(String[] args) {
+        Random random = new Random();
+        int secretNumber = random.nextInt(100) + 1;
+        int numGuesses = 0;
+        int guess;
+
+        JOptionPane.showMessageDialog(null, "Welcome to the Number Guessing Game!");
+
+        do {
+            String input = JOptionPane.showInputDialog(null, "Enter guess:");
+            guess = Integer.parseInt(input);
+            numGuesses++;
+
+            if (guess < secretNumber) {
+                JOptionPane.showMessageDialog(null, "low!");
+            } else if (guess > secretNumber) {
+                JOptionPane.showMessageDialog(null, "High!");
+            } else {
+                JOptionPane.showMessageDialog(null, "You got it in " + numGuesses + " guesses!");
+            }
+        } while (guess != secretNumber);
+    }
+}
