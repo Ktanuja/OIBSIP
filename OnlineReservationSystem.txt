@@ -1,0 +1,78 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class OnlineReservationSystem {
+    private static HashMap<String, String> users = new HashMap<String, String>();
+    private static HashMap<String, String> reservations = new HashMap<String, String>();
+    private static Scanner scanner = new Scanner(System.in);
+    private static boolean loggedIn = false;
+    private static String username = "";
+
+    public static void main(String[] args) {
+
+        users.put("user2", "password2");
+        reservations.put("user1", "Reservation for user1");
+        reservations.put("user2", "Reservation for user2");
+
+        while (true) {
+            if (!loggedIn) {
+                login();
+            } else {
+                System.out.println("\n1. View reservation 2. Make a reservation 3. Cancel reservation 4.Logout:");
+                int ch = scanner.nextInt();
+                switch (ch) {
+                    case 1:
+                        showReservation();
+                        break;
+                    case 2:
+                        doReservation();
+                        break;
+                    case 3:
+                        deleteReservation();
+                        break;
+                    case 4:
+                        signout();
+                        break;
+                    default:
+                        System.out.println("Invalid! Please enter valid choice");
+                        break;
+                }
+            }
+        }
+    }
+
+    private static void login() {
+        System.out.println("\nEnter username:");
+        String inputUsername = scanner.next();
+        System.out.println("Enter password:");
+        String password = scanner.next();
+        if (users.containsKey(inputUsername) && users.get(inputUsername).equals(password)) {
+            loggedIn = true;
+            username = inputUsername;
+            System.out.println("Login successful!!!");
+        } else {
+            System.out.println("Login failed!");
+        }
+    }
+
+    private static void signout() {
+        loggedIn = false;
+        username = "";
+        System.out.println("Logout successful!");
+    }
+
+    private static void doReservation() {
+        System.out.println("\nEnter reservation details:");
+        String reservationDetails = scanner.next();
+    }
+
+    private static void deleteReservation() {
+        reservations.remove(username);
+        System.out.println("Reservation cancelled successfully!");
+    }
+
+    private static void showReservation() {
+        String reservation = reservations.get(username);
+        System.out.println("\n" + reservation);
+    }
+}
